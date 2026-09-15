@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Commander un gâteau | Bayt Al Cake</title>
+    <meta name="description"
+        content="Personnalisez votre gâteau Bayt Al Cake : parfum, taille et coordonnées. Envoyez votre demande directement par WhatsApp.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icônes Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Police -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS du site -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Styles spécifiques à la page gâteau */
+        .cake-page {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(225, 127, 82, .08), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(225, 127, 82, .07), transparent 30%),
+                #fffaf5;
+        }
+
+        .cake-detail {
+            padding: 150px 0 90px;
+        }
+
+        .cake-image-wrap {
+            position: relative;
+            border-radius: 30px;
+            padding: 14px;
+            background: rgba(255, 255, 255, .75);
+            box-shadow: 0 25px 70px rgba(77, 43, 34, .13);
+            transform-style: preserve-3d;
+            transition: transform .5s ease, box-shadow .5s ease;
+        }
+
+        .cake-image-wrap:hover {
+            transform: perspective(1200px) rotateY(-3deg) rotateX(2deg) translateY(-5px);
+            box-shadow: 0 35px 90px rgba(77, 43, 34, .18);
+        }
+
+        .cake-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            border-radius: 24px;
+        }
+
+        .cake-info {
+            padding: 25px 10px 25px 45px;
+        }
+
+        .eyebrow {
+            color: #d97952;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            font-size: .76rem;
+            font-weight: 700;
+        }
+
+        .cake-title {
+            font-family: "Playfair Display", serif;
+            color: #4d2b22;
+            font-size: clamp(2.7rem, 5vw, 4.8rem);
+            line-height: .98;
+            margin: 14px 0 22px;
+        }
+
+        .cake-title span {
+            color: #df7d53;
+            font-style: italic;
+        }
+
+        .cake-description {
+            color: #806f68;
+            line-height: 1.8;
+            max-width: 580px;
+        }
+
+        .order-card {
+            margin-top: 35px;
+            padding: 30px;
+            border: 1px solid rgba(217, 121, 82, .18);
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .82);
+            box-shadow: 0 20px 55px rgba(77, 43, 34, .08);
+            backdrop-filter: blur(12px);
+        }
+
+        .form-label {
+            color: #56352b;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 52px;
+            border: 1px solid #eadbd2;
+            border-radius: 14px;
+            background: #fffdfa;
+            color: #4d2b22;
+            padding: 12px 15px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #df7d53;
+            box-shadow: 0 0 0 .2rem rgba(223, 125, 83, .12);
+        }
+
+        .price-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 24px;
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: #fff5ee;
+        }
+
+        .price-label {
+            color: #806f68;
+            font-size: .9rem;
+        }
+
+        .price-value {
+            color: #d86f49;
+            font-family: "Playfair Display", serif;
+            font-size: 1.9rem;
+            font-weight: 600;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            min-height: 56px;
+            margin-top: 18px;
+            border: 0;
+            border-radius: 999px;
+            background: #df7d53;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: .05em;
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #cf6c48;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(207, 108, 72, .25);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #a96a51;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .back-link:hover {
+            color: #d86f49;
+        }
+
+        .required-note {
+            color: #9a8880;
+            font-size: .82rem;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+
+        .allergen-box {
+            margin-top: 22px;
+            padding: 18px 20px;
+            border-radius: 18px;
+            background: #faf0e9;
+            border: 1px solid rgba(217, 121, 82, .14);
+        }
+
+        .allergen-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: #56352b;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .allergen-title i {
+            color: #d97952;
+        }
+
+        .allergen-text {
+            margin: 0;
+            color: #806f68;
+            line-height: 1.6;
+            font-size: .9rem;
+        }
+
+        .hidden-field {
+            display: none !important;
+        }
+
+        /* Commande groupée */
+        .order-items {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 22px;
+        }
+
+        .order-item {
+            position: relative;
+            padding: 18px;
+            border: 1px solid #eadbd2;
+            border-radius: 18px;
+            background: #fffaf7;
+        }
+
+        .order-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .order-item-title {
+            color: #56352b;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .remove-item-btn {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #eadbd2;
+            border-radius: 50%;
+            background: #fff;
+            color: #a96a51;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s ease;
+        }
+
+        .remove-item-btn:hover {
+            background: #fff0e8;
+            color: #cf6c48;
+            transform: scale(1.05);
+        }
+
+        .add-item-btn {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 16px;
+            border: 1px dashed #df7d53;
+            border-radius: 14px;
+            background: #fff8f3;
+            color: #c96743;
+            font-weight: 700;
+            transition: .2s ease;
+        }
+
+        .add-item-btn:hover {
+            background: #fff0e8;
+            transform: translateY(-1px);
+        }
+
+        .order-total-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 14px;
+            padding: 12px 2px 0;
+            border-top: 1px solid #eadbd2;
+            color: #806f68;
+            font-size: .9rem;
+        }
+
+        .order-total-line strong {
+            color: #d86f49;
+            font-family: "Playfair Display", serif;
+            font-size: 1.35rem;
+        }
+
+        .item-price {
+            margin-top: 10px;
+            color: #d86f49;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .add-product-picker {
+            margin-top: 14px;
+            padding: 16px;
+            border-radius: 16px;
+            background: #faf0e9;
+            border: 1px solid rgba(217, 121, 82, .14);
+        }
+
+        .add-product-picker label {
+            color: #56352b;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 991.98px) {
+            .cake-detail {
+                padding-top: 120px;
+            }
+
+            .cake-info {
+                padding: 35px 0 0;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .cake-detail {
+                padding: 105px 0 60px;
+            }
+
+            .order-card {
+                padding: 22px;
+            }
+
+            .cake-title {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="cake-page">
+
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm" id="mainNavbar">
+        <div class="container py-2">
+
+            <a class="navbar-brand d-flex align-items-center" href="index.html" aria-label="Bayt Al Cake - Accueil">
+                <img src="images/logo.png" alt="Bayt Al Cake - Pâtisserie fait maison" height="72"
+                    style="width:auto; object-fit:contain;">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Ouvrir le menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#apropos">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#creations">Nos créations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a class="btn rounded-pill px-4 py-2 fw-bold" href="#commande"
+                            style="background:#df7d53;color:#fff;">
+                            Commander
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="cake-detail">
+        <div class="container">
+
+            <a href="index.html#creations" class="back-link">
+                <i class="bi bi-arrow-left"></i>
+                Retour aux créations
+            </a>
+
+            <div class="row align-items-center g-5">
+
+                <!-- PHOTO -->
+                <div class="col-lg-6">
+                    <div class="cake-image-wrap">
+                        <img id="cakeImage" class="cake-image" src="images/gateaux/charlotte-mangue-passion.png"
+                            alt="Charlotte Mangue Passion Bayt Al Cake">
+                    </div>
+                </div>
+
+                <!-- INFORMATIONS + FORMULAIRE -->
+                <div class="col-lg-6">
+                    <div class="cake-info">
+
+                        <div class="eyebrow">Commande personnalisée</div>
+
+                        <h1 class="cake-title" id="cakeTitle">
+                            Charlotte <span>Mangue / Passion</span>
+                        </h1>
+
+                        <p class="cake-description" id="cakeDescription">
+                            Une charlotte généreuse composée d'un biscuit moelleux,
+                            d'une mousse légère et d'un cœur mangue-passion.
+                        </p>
+
+                        <div class="order-card" id="commande">
+                            <form id="cakeOrderForm">
+
+                                <!-- Création principale -->
+                                <div class="order-item" id="mainOrderItem">
+                                    <div class="order-item-header">
+                                        <p class="order-item-title mb-0">Création 1</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="selectedCake" class="form-label">Gâteau sélectionné</label>
+                                        <input type="text" class="form-control" id="selectedCake" name="gateau"
+                                            value="Charlotte Mangue / Passion" readonly>
+                                    </div>
+
+                                    <div class="row g-3">
+                                        <div class="col-md-6" id="sizeGroup">
+                                            <label for="size" class="form-label">Taille</label>
+                                            <select class="form-select" id="size" name="taille" required>
+                                                <option value="">Choisir la taille</option>
+                                                <option value="6-8 parts" data-price="35">6-8 parts — 35 €</option>
+                                                <option value="10-12 parts" data-price="45">10-12 parts — 45 €</option>
+                                                <option value="16-18 parts" data-price="55">16-18 parts — 55 €</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6 d-none" id="quantityGroup">
+                                            <label for="quantity" class="form-label">Nombre de verrines</label>
+                                            <input type="number" class="form-control" id="quantity" name="quantite"
+                                                min="20" step="1" placeholder="Minimum 20 verrines">
+                                            <div class="form-hint">1,50 € la pièce · minimum 20 pièces</div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="deliveryDate" class="form-label">Date souhaitée</label>
+                                            <input type="date" class="form-control" id="deliveryDate" name="date" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-price" id="mainItemPrice">Prix : À partir de 35 €</div>
+                                </div>
+
+                                <!-- Créations supplémentaires -->
+                                <div id="additionalItems" class="order-items"></div>
+
+                                <button type="button" class="add-item-btn" id="addItemBtn">
+                                    <i class="bi bi-plus-circle me-2"></i>
+                                    AJOUTER UNE AUTRE CRÉATION
+                                </button>
+
+                                <!-- COORDONNÉES -->
+                                <div class="row g-3 mt-1">
+                                    <div class="col-md-6">
+                                        <label for="customerName" class="form-label">Nom</label>
+                                        <input type="text" class="form-control" id="customerName" name="nom"
+                                            placeholder="Votre nom" autocomplete="name" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Numéro de portable</label>
+                                        <input type="tel" class="form-control" id="phone" name="telephone"
+                                            placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel" required>
+                                    </div>
+                                </div>
+
+                                <!-- INFORMATIONS ALLERGÈNES -->
+                                <div class="allergen-box">
+                                    <div class="allergen-title">
+                                        <i class="bi bi-exclamation-triangle"></i>
+                                        <span>Informations allergènes</span>
+                                    </div>
+
+                                    <span class="allergen-help">
+                                        Indiquez ici toute allergie ou information importante à prendre en compte pour
+                                        votre commande.
+                                    </span>
+
+                                    <textarea id="allergenInfo" name="allergenes" class="allergen-input"
+                                        placeholder="Ex. : allergie aux fruits à coque, gluten, lactose... (facultatif)"
+                                        rows="3"></textarea>
+                                </div>
+
+                                <!-- PRIX TOTAL -->
+                                <div class="price-box">
+                                    <div>
+                                        <div class="price-label">Prix</div>
+                                        <small class="text-muted" id="priceSubtext">Selon les créations sélectionnées</small>
+                                    </div>
+
+                                    <div class="price-value" id="priceDisplay">
+                                        À partir de 35 €
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="whatsapp-btn">
+                                    <i class="bi bi-whatsapp me-2"></i>
+                                    ENVOYER LA DEMANDE SUR WHATSAPP
+                                </button>
+
+                                <div class="required-note">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    La commande sera envoyée directement à Bayt Al Cake.
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS du site -->
+    <script src="js/script.js"></script>
+
+    <!-- Fonctionnement de la page gâteau -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const products = {
+                "Charlotte Mangue / Passion": {
+                    type: "cake",
+                    image: "images/gateaux/charlotte-mangue-passion.png",
+                    description: "Une charlotte généreuse composée d'un biscuit moelleux, d'une mousse légère et d'un cœur mangue-passion."
+                },
+                "Charlotte Pistache / Framboise": {
+                    type: "cake",
+                    image: "images/gateaux/charlotte-pistache-framboise.png",
+                    description: "Une charlotte délicate associant la douceur de la pistache à la fraîcheur de la framboise."
+                },
+                "Charlotte Fruits Rouges": {
+                    type: "cake",
+                    image: "images/gateaux/charlotte-fruits-rouges.png",
+                    description: "Une création fruitée et généreuse autour de la vanille et d'un mélange de fruits rouges."
+                },
+                "Charlotte Fraise": {
+                    type: "cake",
+                    image: "images/gateaux/charlotte-fraisier.png",
+                    description: "Une charlotte fraîche et gourmande à la vanille, accompagnée de fraises fraîches."
+                },
+                "Charlotte Spéculoos": {
+                    type: "cake",
+                    image: "images/gateaux/charlotte-speculoos.png",
+                    description: "Une charlotte gourmande aux notes de spéculoos."
+                },
+                "Fraisier": {
+                    type: "fixedCake",
+                    image: "images/gateaux/fraisier.png",
+                    description: "Un fraisier généreux et gourmand aux fraises fraîches et à la crème légère."
+                },
+                "Framboisier": {
+                    type: "fixedCake",
+                    image: "images/gateaux/framboisier.png",
+                    description: "Un framboisier fruité et gourmand aux framboises fraîches et à la crème légère."
+                },
+                "Verrine Mangue": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-mangue.png",
+                    description: "Une verrine légère et fruitée à la mangue, idéale pour une pause gourmande."
+                },
+                "Verrine Spéculoos": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-speculoos.png",
+                    description: "Une verrine onctueuse associant crème mascarpone et éclats de spéculoos."
+                },
+                "Verrine Oreo": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-oreo.png",
+                    description: "Une verrine ultra gourmande à la crème vanillée et aux biscuits Oreo."
+                },
+                "Verrine Framboise": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-framboise.png",
+                    description: "Une verrine fraîche et délicate à la crème légère et aux framboises fraîches."
+                }
+,
+                "Verrine Chocolat": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-chocolat.png",
+                    description: "Une verrine gourmande au chocolat et à la chantilly maison."
+                },
+                "Verrine Pistache": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-pistache.png",
+                    description: "Une verrine douce et gourmande aux délicates notes de pistache."
+                },
+                "Verrine Coco": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-coco.png",
+                    description: "Une verrine onctueuse aux délicates saveurs de coco."
+                },
+                "Verrine Fraise": {
+                    type: "verrine",
+                    image: "images/gateaux/verrine-fraise.png",
+                    description: "Une verrine fraîche et fruitée aux notes délicates de fraise."
+                }
+            };
+
+            const params = new URLSearchParams(window.location.search);
+            const requestedCake = params.get("produit") || params.get("gateau");
+            const defaultProduct = "Charlotte Mangue / Passion";
+            const initialProduct = products[requestedCake] ? requestedCake : defaultProduct;
+
+            const cakeImage = document.getElementById("cakeImage");
+            const cakeTitle = document.getElementById("cakeTitle");
+            const cakeDescription = document.getElementById("cakeDescription");
+            const selectedCake = document.getElementById("selectedCake");
+            const size = document.getElementById("size");
+            const sizeGroup = document.getElementById("sizeGroup");
+            const quantity = document.getElementById("quantity");
+            const quantityGroup = document.getElementById("quantityGroup");
+            const deliveryDate = document.getElementById("deliveryDate");
+            const mainItemPrice = document.getElementById("mainItemPrice");
+            const priceDisplay = document.getElementById("priceDisplay");
+            const priceSubtext = document.getElementById("priceSubtext");
+            const additionalItems = document.getElementById("additionalItems");
+            const addItemBtn = document.getElementById("addItemBtn");
+            const form = document.getElementById("cakeOrderForm");
+
+            // Date minimale : aujourd'hui.
+            const today = new Date();
+            const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+                .toISOString()
+                .split("T")[0];
+            deliveryDate.min = localToday;
+
+            const charlotteAllergens = `
+                <strong>Allergènes – Charlottes</strong>
+                <p>Nos charlottes sont préparées avec :</p>
+                <ul>
+                    <li>🌾 <strong>Gluten :</strong> présent dans les biscuits cuillères.</li>
+                    <li>🥚 <strong>Œufs :</strong> présents dans les biscuits cuillères.</li>
+                    <li>🥛 <strong>Lait et produits laitiers :</strong> présents dans la crème liquide, le mascarpone et éventuellement le sucre vanillé selon sa composition.</li>
+                </ul>
+                <p class="mb-0">Pour toute allergie ou question concernant la composition d’une charlotte, merci de nous contacter avant toute commande.</p>
+            `;
+
+            const verrineAllergens = `
+                <strong>Allergènes – Verrines</strong>
+                <p>Nos verrines sont préparées avec une chantilly maison à base de :</p>
+                <ul>
+                    <li>🥛 <strong>Lait et produits laitiers :</strong> crème liquide et mascarpone.</li>
+                </ul>
+                <p>Les fruits et les coulis varient selon les recettes. Les allergènes éventuels présents dans les coulis dépendent de leur composition.</p>
+                <p class="mb-0">Pour toute allergie alimentaire, merci de nous contacter avant de passer commande afin de connaître la composition exacte de la verrine choisie.</p>
+            `;
+
+            function applyMainProduct(productName) {
+                const product = products[productName] || products[defaultProduct];
+                const isVerrine = product.type === "verrine";
+
+                selectedCake.value = productName;
+                cakeImage.src = product.image;
+                cakeImage.alt = productName;
+                cakeDescription.textContent = product.description;
+
+                if (productName.includes("/")) {
+                    const parts = productName.split("/");
+                    cakeTitle.innerHTML = `${parts[0].trim()} <span>${parts[1].trim()}</span>`;
+                } else {
+                    const firstSpace = productName.indexOf(" ");
+                    if (firstSpace > -1) {
+                        cakeTitle.innerHTML = `${productName.substring(0, firstSpace)} <span>${productName.substring(firstSpace + 1)}</span>`;
+                    } else {
+                        cakeTitle.innerHTML = `<span>${productName}</span>`;
+                    }
+                }
+
+                if (isVerrine) {
+                    sizeGroup.classList.add("hidden-field");
+                    size.required = false;
+                    size.disabled = false;
+                    size.value = "";
+                    quantityGroup.classList.remove("d-none");
+                    quantity.required = true;
+                    quantity.value = "20";
+                } else if (product.type === "fixedCake") {
+                    // Fraisier et Framboisier : taille unique 8-10 parts.
+                    sizeGroup.classList.remove("hidden-field");
+                    size.innerHTML = '<option value="8-10 parts" selected>8-10 parts</option>';
+                    size.disabled = true;
+                    size.required = false;
+                    quantityGroup.classList.add("d-none");
+                    quantity.required = false;
+                    quantity.value = "";
+                } else {
+                    // Charlottes : tailles disponibles selon les tarifs.
+                    sizeGroup.classList.remove("hidden-field");
+                    size.disabled = false;
+                    size.required = true;
+                    size.innerHTML = `
+                        <option value="">Choisir la taille</option>
+                        <option value="6-8 parts" data-price="35">6-8 parts — 35 €</option>
+                        <option value="10-12 parts" data-price="45">10-12 parts — 45 €</option>
+                        <option value="16-18 parts" data-price="55">16-18 parts — 55 €</option>
+                    `;
+                    quantityGroup.classList.add("d-none");
+                    quantity.required = false;
+                    quantity.value = "";
+                }
+
+                updateAllergenText(product.type);
+                updatePrices();
+            }
+
+            function updateAllergenText(type) {
+                const text = document.getElementById("allergenInfo");
+                const help = document.querySelector(".allergen-help");
+                if (!text || !help) return;
+
+                // Le champ reste libre : on conserve toujours ce que le client a déjà écrit.
+                help.textContent = type === "verrine"
+                    ? "Indiquez ici toute allergie ou information importante à prendre en compte pour votre commande."
+                    : "Indiquez ici toute allergie ou information importante à prendre en compte pour votre commande.";
+            }
+
+            function productSelectHTML(selected = "") {
+                const options = Object.keys(products)
+                    .map(name => `<option value="${escapeHtml(name)}" ${name === selected ? "selected" : ""}>${escapeHtml(name)}</option>`)
+                    .join("");
+                return `<select class="form-select additional-product-select" aria-label="Choisir une création">
+                    <option value="">Choisir une création</option>
+                    ${options}
+                </select>`;
+            }
+
+            function escapeHtml(value) {
+                return String(value)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/\"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function itemMarkup(index) {
+                return `
+                    <div class="order-item additional-order-item" data-index="${index}">
+                        <div class="order-item-header">
+                            <p class="order-item-title mb-0">Création ${index + 1}</p>
+                            <button type="button" class="remove-item-btn" aria-label="Supprimer cette création">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Gâteau / verrine</label>
+                            ${productSelectHTML()}
+                        </div>
+
+                        <div class="row g-3 item-options"></div>
+                        <div class="item-price">Prix : <span class="additional-item-price">À confirmer</span></div>
+                    </div>
+                `;
+            }
+
+            function optionsMarkup(type) {
+                if (type === "verrine") {
+                    return `
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre de verrines</label>
+                            <input type="number" class="form-control additional-quantity" min="20" step="1" value="20" placeholder="Minimum 20 verrines">
+                            <div class="form-hint">1,50 € la pièce · minimum 20 pièces</div>
+                        </div>
+                    `;
+                }
+
+                if (type === "fixedCake") {
+                    return `
+                        <div class="col-md-6">
+                            <label class="form-label">Taille</label>
+                            <input type="text" class="form-control" value="8-10 parts" readonly>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="col-md-6">
+                        <label class="form-label">Taille</label>
+                        <select class="form-select additional-size">
+                            <option value="">Choisir la taille</option>
+                            <option value="6-8 parts" data-price="35">6-8 parts — 35 €</option>
+                            <option value="10-12 parts" data-price="45">10-12 parts — 45 €</option>
+                            <option value="16-18 parts" data-price="55">16-18 parts — 55 €</option>
+                        </select>
+                    </div>
+                `;
+            }
+
+            function getItemPrice(type, sizeValue, quantityValue) {
+                if (type === "verrine") {
+                    const q = Number(quantityValue);
+                    if (!Number.isInteger(q) || q < 20) return null;
+                    return q * 1.5;
+                }
+                const option = [...size.options].find(o => o.value === sizeValue);
+                return option?.dataset.price ? Number(option.dataset.price) : null;
+            }
+
+            function updateMainItemPrice() {
+                const product = products[selectedCake.value] || products[defaultProduct];
+                if (product.type === "verrine") {
+                    const q = Number(quantity.value);
+                    mainItemPrice.textContent = Number.isInteger(q) && q >= 20
+                        ? `Prix : ${formatPrice(q * 1.5)}`
+                        : "Prix : À partir de 30 €";
+                } else if (product.type === "fixedCake") {
+                    mainItemPrice.textContent = "Prix : 40 €";
+                } else {
+                    const option = size.options[size.selectedIndex];
+                    mainItemPrice.textContent = option?.dataset.price
+                        ? `Prix : ${formatPrice(Number(option.dataset.price))}`
+                        : "Prix : À partir de 35 €";
+                }
+            }
+
+            function updateAdditionalItem(item) {
+                const select = item.querySelector(".additional-product-select");
+                const optionsContainer = item.querySelector(".item-options");
+                const priceElement = item.querySelector(".additional-item-price");
+                const product = products[select.value];
+
+                if (!product) {
+                    optionsContainer.innerHTML = "";
+                    priceElement.textContent = "À confirmer";
+                    updatePrices();
+                    return;
+                }
+
+                optionsContainer.innerHTML = optionsMarkup(product.type);
+
+                const input = optionsContainer.querySelector(".additional-size, .additional-quantity");
+                input?.addEventListener("change", () => updatePrices());
+                input?.addEventListener("input", () => updatePrices());
+
+                if (product.type === "verrine") {
+                    priceElement.textContent = formatPrice(30);
+                } else if (product.type === "fixedCake") {
+                    priceElement.textContent = formatPrice(40);
+                } else {
+                    priceElement.textContent = "À partir de 35 €";
+                }
+
+                updatePrices();
+            }
+
+            function getAdditionalItems() {
+                return [...additionalItems.querySelectorAll(".additional-order-item")].map(item => {
+                    const productName = item.querySelector(".additional-product-select")?.value || "";
+                    const product = products[productName];
+                    if (!productName || !product) return { item, valid: false };
+
+                    if (product.type === "verrine") {
+                        const q = Number(item.querySelector(".additional-quantity")?.value);
+                        const price = Number.isInteger(q) && q >= 20 ? q * 1.5 : null;
+                        return { item, valid: price !== null, name: productName, type: product.type, quantity: q, price };
+                    }
+
+                    if (product.type === "fixedCake") {
+                        return {
+                            item,
+                            valid: true,
+                            name: productName,
+                            type: product.type,
+                            size: "",
+                            price: 40
+                        };
+                    }
+
+                    const select = item.querySelector(".additional-size");
+                    const option = select?.options[select.selectedIndex];
+                    const price = option?.dataset.price ? Number(option.dataset.price) : null;
+                    return { item, valid: price !== null, name: productName, type: product.type, size: select?.value || "", price };
+                });
+            }
+
+            function updatePrices() {
+                updateMainItemPrice();
+
+                let total = 0;
+                let hasUnconfirmed = false;
+
+                const mainProduct = products[selectedCake.value] || products[defaultProduct];
+                if (mainProduct.type === "verrine") {
+                    const q = Number(quantity.value);
+                    if (Number.isInteger(q) && q >= 20) total += q * 1.5;
+                    else hasUnconfirmed = true;
+                } else if (mainProduct.type === "fixedCake") {
+                    total += 40;
+                } else {
+                    const option = size.options[size.selectedIndex];
+                    if (option?.dataset.price) total += Number(option.dataset.price);
+                    else hasUnconfirmed = true;
+                }
+
+                getAdditionalItems().forEach(data => {
+                    if (data.valid) total += data.price;
+                    else hasUnconfirmed = true;
+
+                    const priceEl = data.item.querySelector(".additional-item-price");
+                    if (priceEl) {
+                        if (data.price !== undefined && data.price !== null) {
+                            priceEl.textContent = formatPrice(data.price);
+                        } else if (data.type === "verrine") {
+                            priceEl.textContent = "À partir de 30 €";
+                        } else if (data.type === "fixedCake") {
+                            priceEl.textContent = "40 €";
+                        } else {
+                            priceEl.textContent = "À partir de 35 €";
+                        }
+                    }
+                });
+
+                priceDisplay.textContent = hasUnconfirmed
+                    ? (total > 0 ? `À partir de ${formatPrice(total)}` : "À partir de 35 €")
+                    : formatPrice(total);
+
+                priceSubtext.textContent = additionalItems.children.length
+                    ? "Total de la commande groupée"
+                    : "Selon la création et la taille sélectionnées";
+            }
+
+            function formatPrice(value) {
+                return `${Number(value).toFixed(2).replace(/\.00$/, "").replace(".", ",")} €`;
+            }
+
+            function addItem() {
+                const index = additionalItems.children.length + 1;
+                const wrapper = document.createElement("div");
+                wrapper.innerHTML = itemMarkup(index);
+                const item = wrapper.firstElementChild;
+                additionalItems.appendChild(item);
+
+                const select = item.querySelector(".additional-product-select");
+                select.addEventListener("change", () => updateAdditionalItem(item));
+
+                item.querySelector(".remove-item-btn").addEventListener("click", () => {
+                    item.remove();
+                    refreshItemNumbers();
+                    updatePrices();
+                });
+
+                updatePrices();
+                item.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+
+            function refreshItemNumbers() {
+                [...additionalItems.children].forEach((item, index) => {
+                    const title = item.querySelector(".order-item-title");
+                    if (title) title.textContent = `Création ${index + 2}`;
+                });
+            }
+
+            applyMainProduct(initialProduct);
+
+            size.addEventListener("change", updatePrices);
+            quantity.addEventListener("input", updatePrices);
+            quantity.addEventListener("change", updatePrices);
+            addItemBtn.addEventListener("click", addItem);
+
+            form.addEventListener("submit", event => {
+                event.preventDefault();
+
+                // Vérification de la création principale.
+                const mainProduct = products[selectedCake.value] || products[defaultProduct];
+                if (mainProduct.type === "verrine") {
+                    const q = Number(quantity.value);
+                    if (!Number.isInteger(q) || q < 20) {
+                        quantity.setCustomValidity("Le minimum de commande est de 20 verrines.");
+                    } else {
+                        quantity.setCustomValidity("");
+                    }
+                } else if (mainProduct.type === "fixedCake") {
+                    quantity.setCustomValidity("");
+                } else {
+                    quantity.setCustomValidity("");
+                }
+
+                const additionalData = getAdditionalItems();
+                const invalidAdditional = additionalData.find(data => !data.valid);
+                if (invalidAdditional) {
+                    alert("Merci de choisir une création et ses options pour chaque ajout.");
+                    invalidAdditional.item.querySelector(".additional-product-select")?.focus();
+                    return;
+                }
+
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const name = document.getElementById("customerName").value.trim();
+                const phone = document.getElementById("phone").value.trim();
+                const requestedDate = deliveryDate.value.split("-").reverse().join("/");
+                const allergenInfo = document.getElementById("allergenInfo").value.trim();
+
+                const mainOption = size.options[size.selectedIndex];
+                const mainQuantity = Number(quantity.value);
+                const mainPrice = mainProduct.type === "verrine"
+                    ? mainQuantity * 1.5
+                    : mainProduct.type === "fixedCake"
+                        ? 40
+                        : Number(mainOption?.dataset.price);
+
+                let message = `Bonjour Bayt Al Cake\n\nJe souhaite faire une demande de commande :\n\nCréation 1 : ${selectedCake.value}`;
+
+                if (mainProduct.type === "verrine") {
+                    message += `\nNombre de verrines : ${mainQuantity}\nPrix : ${formatPrice(mainPrice)} (1,50 € / pièce)`;
+                } else if (mainProduct.type === "fixedCake") {
+                    message += `\nTaille : 8-10 parts\nPrix : ${formatPrice(mainPrice)}`;
+                } else {
+                    message += `\nTaille : ${size.value}\nPrix : ${formatPrice(mainPrice)}`;
+                }
+
+                additionalData.forEach((data, index) => {
+                    message += `\n\nCréation ${index + 2} : ${data.name}`;
+                    if (data.type === "verrine") {
+                        message += `\nNombre de verrines : ${data.quantity}\nPrix : ${formatPrice(data.price)} (1,50 € / pièce)`;
+                    } else if (data.type === "fixedCake") {
+                        message += `\nTaille : 8-10 parts\nPrix : ${formatPrice(data.price)}`;
+                    } else {
+                        message += `\nTaille : ${data.size}\nPrix : ${formatPrice(data.price)}`;
+                    }
+                });
+
+                const total = mainPrice + additionalData.reduce((sum, data) => sum + data.price, 0);
+                message += `\n\nPrix total : ${formatPrice(total)}\nDate souhaitée : ${requestedDate}\n\nNom : ${name}\nTéléphone : ${phone}\n\nAllergènes / informations : ${allergenInfo || "Aucune allergie ou information particulière signalée."}`;
+
+                const whatsappNumber = "33674774139";
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappURL, "_blank", "noopener,noreferrer");
+            });
+        });
+    </script>
+
+</body>
+
+</html>
