@@ -548,7 +548,13 @@
 
                                         <div class="col-md-6">
                                             <label for="deliveryDate" class="form-label">Date souhaitée</label>
-                                            <input type="date" class="form-control" id="deliveryDate" name="date" required>
+
+                                            <input type="date" class="form-control" id="deliveryDate" name="date"
+                                                required>
+                                            <small id="dateHelp" style="display:block; margin-top:8px; color:#806f68;">
+                                                Choisissez une date à partir d’après-demain (2 jours minimum).
+                                            </small>
+
                                         </div>
                                     </div>
 
@@ -599,7 +605,8 @@
                                 <div class="price-box">
                                     <div>
                                         <div class="price-label">Prix</div>
-                                        <small class="text-muted" id="priceSubtext">Selon les créations sélectionnées</small>
+                                        <small class="text-muted" id="priceSubtext">Selon les créations
+                                            sélectionnées</small>
                                     </div>
 
                                     <div class="price-value" id="priceDisplay">
@@ -692,7 +699,7 @@
                     image: "images/gateaux/verrine-framboise.png",
                     description: "Une verrine fraîche et délicate à la crème légère et aux framboises fraîches."
                 }
-,
+                ,
                 "Verrine Chocolat": {
                     type: "verrine",
                     image: "images/gateaux/verrine-chocolat.png",
@@ -736,11 +743,14 @@
             const addItemBtn = document.getElementById("addItemBtn");
             const form = document.getElementById("cakeOrderForm");
 
-            // Date minimale : aujourd'hui.
+            // Date minimale : après-demain (délai minimum de 2 jours).
             const today = new Date();
+            today.setDate(today.getDate() + 2);
+
             const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
                 .toISOString()
                 .split("T")[0];
+
             deliveryDate.min = localToday;
 
             const charlotteAllergens = `
